@@ -4,4 +4,6 @@ export default {
   tertiary: "#DB7093",
   light: "#FFFFFF",
   dark: "#A52A2A",
+  textPrimary: "#000000",
+  textSecondary: "#FFFFFF",
 };

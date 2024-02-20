@@ -1,10 +1,9 @@
 import { View, Text } from "react-native";
-import React from "react";
 
 export default function index() {
   return (
     <View>
-      <Text>It has begun!!</Text>
+      <Text>I freaking dread the error route</Text>
     </View>
   );
 }

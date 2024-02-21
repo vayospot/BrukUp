@@ -19,11 +19,11 @@ export default function Layout() {
 
 function UserProfileWithFilters() {
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+    <View className='flex-row items-center' style={{ gap: 20 }}>
       <TouchableOpacity>
         <UserProfile size={30} />
       </TouchableOpacity>
-      <View style={{ flexDirection: "row" }}>
+      <View className='flex-row' style={{ gap: 5 }}>
         <FilterOption value='For You' />
         <FilterOption value='Nearby' />
         <FilterOption value='Country' />

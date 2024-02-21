@@ -4,7 +4,8 @@ export default function UserProfile({ size }) {
   return (
     <Image
       source={require("../assets/images/profile-image.jpg")}
-      style={{ width: size, height: size, borderRadius: 20 }}
+      style={{ width: size, height: size }}
+      className='rounded-full'
     />
   );
 }

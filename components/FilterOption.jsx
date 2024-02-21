@@ -1,18 +1,12 @@
 import { TouchableOpacity, Text } from "react-native";
-import Colors from "../constants/Colors";
 
 export default function FilterOption({ value, onPress, isActive }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 20,
-        backgroundColor: Colors.tertiary,
-      }}
+      className='px-2 py-1 rounded-full bg-red-500'
     >
-      <Text>{value}</Text>
+      <Text className='text-light text-xs font-poppinsRegular'>{value}</Text>
     </TouchableOpacity>
   );
 }

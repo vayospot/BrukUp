@@ -1,9 +1,9 @@
 export default {
-  primary: "#FF69B4",
-  secondary: "#FFD700",
-  tertiary: "#DB7093",
+  primary: "#FB6D6C",
+  secondary: "#666F80",
+  accent: "#C3C8D3",
   light: "#FFFFFF",
-  dark: "#A52A2A",
+  dark: "#000000",
   textPrimary: "#000000",
   textSecondary: "#FFFFFF",
 };

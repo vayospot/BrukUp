@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import Colors from "../constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -10,6 +11,7 @@ export default function RootLayout() {
     PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
     PoppinsMedium: require("../assets/fonts/Poppins-Medium.ttf"),
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
+    Questrial: require("../assets/fonts/Questrial-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function RootLayout() {
   if (!fontLoaded) return null;
 
   return (
-    <Stack>
+    <Stack screenOptions={{ navigationBarColor: Colors.primary }}>
       <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
     </Stack>
   );

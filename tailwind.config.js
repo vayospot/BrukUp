@@ -8,17 +8,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#FB6D6C",
-        secondary: "#666F80",
-        accent: "#C3C8D3",
-        light: "#FFFFFF",
-        dark: "#000000",
+        primary: "#0A0803",
+        secondary: "#D0FB95",
+        accent: "#D64141",
+      },
+      backgroundColor: {
+        primary: "#0A0803",
+        secondary: "#D0FB95",
+        accent: "#D64141",
       },
       fontFamily: {
         poppinsLight: ["PoppinsLight"],
         poppinsRegular: ["PoppinsRegular"],
         poppinsMedium: ["PoppinsMedium"],
         poppinsBold: ["PoppinsBold"],
+        questrial: ["Questrial"],
       },
     },
   },

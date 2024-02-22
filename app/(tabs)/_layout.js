@@ -1,10 +1,21 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import UserProfile from "../../components/UserProfile";
+import Colors from "../../constants/Colors";
 
 export default function Layout() {
   return (
-    <Tabs screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
+    <Tabs
+      backBehavior='none'
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: Colors.primary,
+          borderTopColor: "transparent",
+        },
+      }}
+    >
       <Tabs.Screen
         name='discover'
         options={{
@@ -12,7 +23,7 @@ export default function Layout() {
             <Ionicons
               name={focused ? "compass" : "compass-outline"}
               size={24}
-              color='black'
+              color='#ffffff'
             />
           ),
         }}
@@ -24,7 +35,7 @@ export default function Layout() {
             <Ionicons
               name={focused ? "chatbox" : "chatbox-outline"}
               size={24}
-              color='black'
+              color='#ffffff'
             />
           ),
         }}
@@ -36,7 +47,7 @@ export default function Layout() {
             <Ionicons
               name={focused ? "people" : "people-outline"}
               size={24}
-              color='black'
+              color='#ffffff'
             />
           ),
         }}
@@ -48,7 +59,7 @@ export default function Layout() {
             <Ionicons
               name={focused ? "book" : "book-outline"}
               size={24}
-              color='black'
+              color='#ffffff'
             />
           ),
         }}

@@ -1,9 +1,5 @@
-export default {
-  primary: "#FB6D6C",
-  secondary: "#666F80",
-  accent: "#C3C8D3",
-  light: "#FFFFFF",
-  dark: "#000000",
-  textPrimary: "#000000",
-  textSecondary: "#FFFFFF",
+export default Colors = {
+  primary: "#0A0803",
+  secondary: "#D0FB95",
+  accent: "#D64141",
 };

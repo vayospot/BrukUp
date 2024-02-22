@@ -3,10 +3,12 @@ import { TouchableOpacity, Text } from "react-native";
 export default function FilterOption({ value, onPress, isActive }) {
   return (
     <TouchableOpacity
-      onPress={onPress}
-      className='px-2 py-1 rounded-full bg-red-500'
+      onPress={() => onPress(value)}
+      className={`px-2.5 py-1.5 rounded-full ${
+        isActive ? "bg-accent" : "bg-black/10"
+      }`}
     >
-      <Text className='text-light text-xs font-poppinsRegular'>{value}</Text>
+      <Text className='text-white text-xs font-questrial'>{value}</Text>
     </TouchableOpacity>
   );
 }

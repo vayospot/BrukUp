@@ -4,24 +4,28 @@ import FilterOption from "../../../components/FilterOption";
 import { TouchableOpacity, View } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useState } from "react";
+import UserDataProvider from "../../../context/UserDataProvider";
 
 export default function Layout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.primary,
-        },
-      }}
-    >
-      <Stack.Screen
-        name='index'
-        options={{
-          headerTitle: "",
-          headerLeft: () => <UserProfileWithFilters />,
+    <UserDataProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
         }}
-      />
-    </Stack>
+      >
+        <Stack.Screen
+          name='home'
+          options={{
+            headerTitle: "",
+            headerLeft: () => <UserProfileWithFilters />,
+          }}
+        />
+        <Stack.Screen name='match' options={{ headerShown: false }} />
+      </Stack>
+    </UserDataProvider>
   );
 }
 

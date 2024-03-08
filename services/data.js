@@ -23,13 +23,11 @@ export default async function fetchUserData() {
       name: item.user.first_name,
       fullname: item.user.name,
       image: item.urls.small,
+      imageHigh: item.urls.regular,
+      location: item.user.location,
+      age: randomValue({ min: 22, max: 34 }),
       height: randomValue([200, 230, 250]),
-      matchValue: randomValue(
-        Array.from(
-          { length: 10 },
-          () => `${Math.floor(Math.random() * 36 + 60)}%`
-        )
-      ),
+      matchValue: randomValue({ min: 60, max: 95 }),
     }));
     return userData;
   } catch (error) {

@@ -30,7 +30,7 @@ export default function MatchCard({ item }) {
         <Text className='text-white font-questrial'>{item.name}</Text>
         <View className='bg-neutral-900 rounded-full px-2 items-center justify-center'>
           <Text className='text-white font-questrial' style={{ fontSize: 10 }}>
-            {item.matchValue}
+            {item.matchValue}%
           </Text>
         </View>
       </LinearGradient>

@@ -1,10 +1,11 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import UserProfile from "../../../components/UserProfile";
 import FilterOption from "../../../components/FilterOption";
 import { TouchableOpacity, View } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useState } from "react";
 import UserDataProvider from "../../../context/UserDataProvider";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Layout() {
   return (
@@ -23,7 +24,16 @@ export default function Layout() {
             headerLeft: () => <UserProfileWithFilters />,
           }}
         />
-        <Stack.Screen name='match' options={{ headerShown: false }} />
+        <Stack.Screen
+          name='match'
+          options={{
+            headerStyle: { backgroundColor: Colors.primary },
+            headerTitleStyle: { color: "#fff", fontFamily: "Questrial" },
+            headerTitleAlign: "center",
+            headerTitle: "Match Making",
+            headerLeft: () => <BackButton />,
+          }}
+        />
       </Stack>
     </UserDataProvider>
   );
@@ -51,5 +61,13 @@ function UserProfileWithFilters() {
         ))}
       </View>
     </View>
+  );
+}
+
+function BackButton() {
+  return (
+    <TouchableOpacity activeOpacity={0.3} onPress={router.back}>
+      <Ionicons name='chevron-back' size={24} color='white' />
+    </TouchableOpacity>
   );
 }

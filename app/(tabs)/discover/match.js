@@ -41,7 +41,7 @@ export default function MatchLayout() {
         <Button
           title='View Profile'
           buttonStyles={"self-center bg-white w-5/6 rounded-lg py-2.5"}
-          textStyles={"text-center font-questrial text-black text-xl"}
+          textStyles={"text-center font-mediumFont text-black text-xl"}
         />
       </View>
     </View>

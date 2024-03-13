@@ -8,7 +8,7 @@ export default function FilterOption({ value, onPress, isActive }) {
         isActive ? "bg-accent" : "bg-black/10"
       }`}
     >
-      <Text className='text-white text-xs font-questrial'>{value}</Text>
+      <Text className='text-white text-s font-mediumFont'>{value}</Text>
     </TouchableOpacity>
   );
 }

@@ -21,21 +21,21 @@ function UserInfo({ user }) {
       style={{ gap: 5 }}
     >
       <View className='bg-neutral-900 rounded-lg px-2 items-center justify-center self-start'>
-        <Text className='text-white font-questrial' style={{ fontSize: 10 }}>
+        <Text className='text-white font-regularFont' style={{ fontSize: 10 }}>
           {user.matchValue}%
         </Text>
       </View>
 
       <View className='flex-row' style={{ gap: 10 }}>
-        <Text className='text-white font-questrial text-5xl'>{user.name}</Text>
-        <Text className='text-white font-questrial text-4xl opacity-60'>
+        <Text className='text-white font-regularFont text-5xl'>{user.name}</Text>
+        <Text className='text-white font-regularFont text-4xl opacity-60'>
           {user.age}
         </Text>
       </View>
 
       <View className='flex-row items-center' style={{ gap: 5 }}>
         <Ionicons name='location-outline' size={10} color='#fff' />
-        <Text className='text-white font-questrial'>{user.location}</Text>
+        <Text className='text-white font-regularFont'>{user.location}</Text>
       </View>
 
       {/* Like and Chat buttons */}

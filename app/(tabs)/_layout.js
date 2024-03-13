@@ -6,6 +6,7 @@ import Colors from "../../constants/Colors";
 export default function Layout() {
   return (
     <Tabs
+      initialRouteName="chat"
       backBehavior='none'
       screenOptions={{
         headerShown: false,

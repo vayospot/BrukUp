@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import BackButton from "../../../components/BackButton";
 
 export default function Layout() {
   return (
@@ -6,7 +7,11 @@ export default function Layout() {
       <Stack.Screen
         name='index'
         options={{
+          headerStyle: { backgroundColor: Colors.primary },
+          headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
+          headerTitleAlign: "center",
           headerTitle: "Profile",
+          headerLeft: () => <BackButton />,
         }}
       />
     </Stack>

@@ -21,7 +21,7 @@ export default async function fetchUserData() {
     const userData = jsonData.results.map((item) => ({
       id: item.id,
       name: item.user.first_name.split(" ")[0],
-      fullname: item.user.name,
+      fullName: item.user.name,
       image: item.urls.small,
       imageHigh: item.urls.regular,
       location: item.user.location,

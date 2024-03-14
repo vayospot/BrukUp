@@ -4,39 +4,35 @@ import FilterOption from "../../../components/FilterOption";
 import { TouchableOpacity, View } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useState } from "react";
-import UserDataProvider from "../../../context/UserDataProvider";
-import { Ionicons } from "@expo/vector-icons";
 import BackButton from "../../../components/BackButton";
 
 export default function Layout() {
   return (
-    <UserDataProvider>
-      <Stack
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+      }}
+    >
+      <Stack.Screen
+        name='index'
+        options={{
+          headerTitle: "",
+          headerLeft: () => <UserProfileWithFilters />,
         }}
-      >
-        <Stack.Screen
-          name='index'
-          options={{
-            headerTitle: "",
-            headerLeft: () => <UserProfileWithFilters />,
-          }}
-        />
-        <Stack.Screen
-          name='match'
-          options={{
-            headerStyle: { backgroundColor: Colors.primary },
-            headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
-            headerTitleAlign: "center",
-            headerTitle: "Match Making",
-            headerLeft: () => <BackButton />,
-          }}
-        />
-      </Stack>
-    </UserDataProvider>
+      />
+      <Stack.Screen
+        name='match'
+        options={{
+          headerStyle: { backgroundColor: Colors.primary },
+          headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
+          headerTitleAlign: "center",
+          headerTitle: "Match Making",
+          headerLeft: () => <BackButton />,
+        }}
+      />
+    </Stack>
   );
 }
 

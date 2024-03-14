@@ -1,9 +1,12 @@
 import { Image } from "react-native";
 
-export default function UserProfile({ size }) {
+export default function UserProfile({ size, imgUrl }) {
+  const url = imgUrl
+    ? { uri: imgUrl }
+    : require("../assets/images/profile-image.jpg");
   return (
     <Image
-      source={require("../assets/images/profile-image.jpg")}
+      source={url}
       style={{ width: size, height: size }}
       className='rounded-full'
     />

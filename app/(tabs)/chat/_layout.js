@@ -6,15 +6,20 @@ import Colors from "../../../constants/Colors";
 
 export default function Layout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
+        headerTitleAlign: "center",
+        headerLeft: () => <BackButton />,
+      }}
+    >
       <Stack.Screen
         name='index'
         options={{
-          headerStyle: { backgroundColor: Colors.primary },
-          headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
-          headerTitleAlign: "center",
           headerTitle: "Chats",
-          headerLeft: () => <BackButton />,
           headerRight: () => (
             <TouchableOpacity
               activeOpacity={0.3}
@@ -24,6 +29,21 @@ export default function Layout() {
             </TouchableOpacity>
           ),
         }}
+      />
+      <Stack.Screen
+        name='[id]'
+        options={({ route }) => ({
+          headerTitle: route.params.name,
+          headerRight: () => (
+            <TouchableOpacity activeOpacity={0.3}>
+              <Ionicons
+                name='ellipsis-vertical-sharp'
+                size={24}
+                color='white'
+              />
+            </TouchableOpacity>
+          ),
+        })}
       />
     </Stack>
   );

@@ -3,7 +3,7 @@ import fetchUserData from "../services/data";
 
 const useUserDataStore = create((set) => ({
   userData: [],
-  setUserData: () => set((data) => ({ userData: data })),
+  setUserData: (data) => set(() => ({ userData: data })),
   getUserData: async () => {
     try {
       const data = await fetchUserData();

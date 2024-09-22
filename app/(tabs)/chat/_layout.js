@@ -41,7 +41,7 @@ export default function Layout() {
           const currentChatUser = userData.find(
             (item) => item.id === route.params.id
           );
-          
+
           return {
             headerTitle: "",
             headerLeft: () => (
@@ -52,7 +52,12 @@ export default function Layout() {
                 <TouchableOpacity
                   className='flex-row items-center'
                   style={{ gap: 10 }}
-                  onPress={() => router.push("/chat/chatUserProfile")}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/chat/chatUserProfile",
+                      params: { userId: route.params.id },
+                    })
+                  }
                 >
                   <UserProfileImage size={35} imgUrl={currentChatUser.image} />
                   <Text className='text-white text-xl font-boldFont'>

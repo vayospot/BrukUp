@@ -7,7 +7,7 @@ const useTabBarVisibility = () => {
     // get the current page from the segment
     const page = segments[segments.length - 1];
     // list of pages tab bar should be hidden
-    const pagesToHideTabBar = ["[id]"];
+    const pagesToHideTabBar = ["[id]", "chatUserProfile"];
 
     return pagesToHideTabBar.includes(page);
   };

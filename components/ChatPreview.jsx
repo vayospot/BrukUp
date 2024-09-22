@@ -1,22 +1,16 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import UserProfile from "./UserProfile";
+import UserProfileImage from "./UserProfileImage";
 import { Link } from "expo-router";
 
-export default function ChatPreview({ user, message, onPress }) {
+export default function ChatPreview({ user, previewMessage, onPress }) {
   return (
-    <Link
-      href={{
-        pathname: "chat/[id]",
-        params: { id: user.id, name: user.fullName },
-      }}
-      asChild
-    >
+    <Link href={`chat/${user.id}`} asChild>
       <TouchableOpacity
         className='flex-row w-full items-center justify-between py-2'
         onPress={onPress}
       >
-        <View className='flex-row items-start flex-1' style={{ gap: 10 }}>
-          <UserProfile size={50} imgUrl={user.image} />
+        <View className='flex-row items-start flex-1' style={{ gap: 12 }}>
+          <UserProfileImage size={53} imgUrl={user.image} />
           <View>
             <Text className='text-white text-lg font-mediumFont'>
               {user.fullName}
@@ -26,7 +20,7 @@ export default function ChatPreview({ user, message, onPress }) {
               numberOfLines={1}
               ellipsizeMode='tail'
             >
-              {message}
+              {previewMessage}
             </Text>
           </View>
         </View>

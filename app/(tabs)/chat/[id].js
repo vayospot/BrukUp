@@ -1,14 +1,25 @@
-// For Hiding tab bar in specific screens - https://reactnavigation.org/docs/hiding-tabbar-in-screens
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native";
+import useUserDataStore from "../../../context/UserDataStore";
+import { DUMMY_MESSAGES } from "../../../services/messageService";
+import MessageList from "../../../components/MessageList";
+import ChatInput from "../../../components/ChatInput";
 
-import { View, Text } from "react-native";
-import { UserDataContext } from "../../../context/UserDataProvider";
-import { useEffect, useContext } from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+export default function ChatInterface() {
+  const userData = useUserDataStore((state) => state.userData);
+  const [messages, setMessages] = useState([]);
 
-export default function ChatBox() {
-  const { userData } = useContext(UserDataContext);
-  const navigation = useNavigation();
-  const { id } = useLocalSearchParams();
+  useEffect(() => {
+    setMessages(DUMMY_MESSAGES);
+  }, []);
 
-  return <View></View>;
+  const handleSendMessage = (newMessage) =>
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+  return (
+    <SafeAreaView className='flex-1 px-5 bg-primary'>
+      <MessageList messages={messages} />
+      <ChatInput onSendMessage={handleSendMessage} />
+    </SafeAreaView>
+  );
 }

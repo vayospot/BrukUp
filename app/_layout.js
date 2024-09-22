@@ -25,7 +25,13 @@ export default function RootLayout() {
   if (!fontLoaded) return null;
 
   return (
-    <Stack screenOptions={{ navigationBarColor: Colors.primary }}>
+    <Stack
+      screenOptions={{
+        contentStyle: { backgroundColor: Colors.primary },
+      }}
+    >
+      <Stack.Screen name='index' options={{ headerShown: false }} />
+      {/* <Stack.Screen name='(auth)' options={{ headerShown: false }} /> */}
       <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
     </Stack>
   );

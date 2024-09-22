@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import { useLocalSearchParams } from "expo-router";
 import Carousel from "react-native-reanimated-carousel";
 import { View, Dimensions } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { UserDataContext } from "../../../context/UserDataProvider";
 import Button from "../../../components/Button";
 import UserCard from "../../../components/UserCard";
+import useUserDataStore from "../../../context/UserDataStore";
 
 export default function MatchLayout() {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const userData = useUserDataStore((state) => state.userData);
+
   const { userId } = useLocalSearchParams();
   const currentUserIndex = userData.findIndex((user) => user.id === userId);
 
@@ -33,8 +33,6 @@ export default function MatchLayout() {
             parallaxScrollingOffset: 65,
             parallaxAdjacentItemScale: 0.7,
           }}
-
-          // mode='horizontal-stack' modeConfig={{ moveSize: 500, stackInterval: 200, rotateZDeg: 10,snapDirection: "left"}}
         />
       </View>
       <View>

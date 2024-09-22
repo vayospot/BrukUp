@@ -10,11 +10,13 @@ module.exports = {
       colors: {
         primary: "#0A0803",
         secondary: "#D0FB95",
+        tertiary: "#7A604A",
         accent: "#D64141",
       },
       backgroundColor: {
         primary: "#0A0803",
         secondary: "#D0FB95",
+        tertiary: "#7A604A",
         accent: "#D64141",
       },
       fontFamily: {

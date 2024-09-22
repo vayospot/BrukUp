@@ -1,12 +1,12 @@
 import { View } from "react-native";
 import { MasonryFlashList } from "@shopify/flash-list";
 import shuffle from "../../../utils/shuffle";
-import { UserDataContext } from "../../../context/UserDataProvider";
-import { useContext } from "react";
 import MatchCard from "./MatchCard";
+import useUserDataStore from "../../../context/UserDataStore";
 
 export default function Home() {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const userData = useUserDataStore((state) => state.userData);
+  const setUserData = useUserDataStore((state) => state.setUserData);
 
   return (
     <View className='flex-1 bg-primary px-2'>

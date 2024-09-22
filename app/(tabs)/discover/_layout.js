@@ -1,10 +1,9 @@
-import { Stack, router } from "expo-router";
-import UserProfile from "../../../components/UserProfile";
-import FilterOption from "../../../components/FilterOption";
+import { Stack } from "expo-router";
+import UserProfileImage from "../../../components/UserProfileImage";
 import { TouchableOpacity, View } from "react-native";
-import Colors from "../../../constants/Colors";
-import { useState } from "react";
 import BackButton from "../../../components/BackButton";
+import FilterCategories from "../../../components/FilterCategories";
+import Colors from "../../../constants/Colors";
 
 export default function Layout() {
   return (
@@ -19,7 +18,18 @@ export default function Layout() {
         name='index'
         options={{
           headerTitle: "",
-          headerLeft: () => <UserProfileWithFilters />,
+          headerLeft: () => {
+            return (
+              <View className='flex-row items-center' style={{ gap: 10 }}>
+                <TouchableOpacity>
+                  <UserProfileImage size={30} />
+                </TouchableOpacity>
+                <FilterCategories
+                  filterValues={["For You", "Nearby", "Country", "Worldwide"]}
+                />
+              </View>
+            );
+          },
         }}
       />
       <Stack.Screen
@@ -33,30 +43,5 @@ export default function Layout() {
         }}
       />
     </Stack>
-  );
-}
-
-function UserProfileWithFilters() {
-  const FILTER_VALUES = ["For You", "Nearby", "Country", "Worldwide"];
-  const [selectedFilter, setSelectedFilter] = useState(FILTER_VALUES[0]);
-
-  const handleSelectedFilter = (value) => setSelectedFilter(value);
-
-  return (
-    <View className='flex-row items-center' style={{ gap: 20 }}>
-      <TouchableOpacity>
-        <UserProfile size={30} />
-      </TouchableOpacity>
-      <View className='flex-row' style={{ gap: 10 }}>
-        {FILTER_VALUES.map((value) => (
-          <FilterOption
-            key={value}
-            value={value}
-            onPress={handleSelectedFilter}
-            isActive={selectedFilter === value}
-          />
-        ))}
-      </View>
-    </View>
   );
 }

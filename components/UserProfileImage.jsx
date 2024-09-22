@@ -1,6 +1,6 @@
 import { Image } from "react-native";
 
-export default function UserProfile({ size, imgUrl }) {
+export default function UserProfileImage({ size, imgUrl }) {
   const url = imgUrl
     ? { uri: imgUrl }
     : require("../assets/images/profile-image.jpg");

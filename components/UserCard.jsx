@@ -6,7 +6,7 @@ import GlassmorphismWrapper from "./GlassmorphismWrapper";
 export default function UserCard({ user }) {
   return (
     <View className='relative flex-1 rounded-lg overflow-hidden'>
-      <Image source={{ uri: user.imageHigh }} className='w-full h-full' />
+      <Image source={{ uri: user.image }} className='w-full h-full' />
       <UserInfo user={user} />
     </View>
   );

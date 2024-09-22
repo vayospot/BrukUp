@@ -5,7 +5,7 @@ export default async function fetchUserData() {
     const API_URL = process.env.EXPO_PUBLIC_API_URL;
     const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
     const response = await fetch(
-      `${API_URL}/search/photos?per_page=20&orientation=portrait&query=lady`,
+      `${API_URL}/search/photos?per_page=20&orientation=portrait&query=young+woman`,
       {
         headers: {
           Authorization: `Client-ID ${API_KEY}`,
@@ -31,6 +31,6 @@ export default async function fetchUserData() {
     }));
     return userData;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }

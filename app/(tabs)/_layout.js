@@ -44,7 +44,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name='connect'
+        name='townsquare'
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? "people" : "people-outline"} />

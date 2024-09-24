@@ -28,17 +28,17 @@ export default function ChatInput({ onSendMessage }) {
   };
 
   return (
-    <View className='flex flex-row items-center gap-2 py-1'>
+    <View className="flex flex-row items-center gap-2 py-1">
       <TextInput
-        className='flex-1 py-1 px-4 rounded-full bg-zinc-800 text-white'
+        className="flex-1 rounded-full bg-zinc-800 px-4 py-1 text-white"
         value={textInput}
         onChangeText={(value) => setTextInput(value)}
-        placeholder='Enter message...'
-        placeholderTextColor='#fff'
+        placeholder="Enter message..."
+        placeholderTextColor="#fff"
       />
 
       <TouchableOpacity onPress={handleSend}>
-        <Ionicons name='send' size={28} color={Colors.accent} />
+        <Ionicons name="send" size={28} color={Colors.accent} />
       </TouchableOpacity>
     </View>
   );

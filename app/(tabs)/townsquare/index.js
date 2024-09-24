@@ -10,7 +10,7 @@ export default function index() {
   };
 
   return (
-    <View className='bg-primary flex-1 p-5' style={{ gap: 20 }}>
+    <View className="flex-1 bg-primary p-5" style={{ gap: 20 }}>
       <SearchBar onSearch={handleSearchQuery} />
       <FlatList
         data={ALL_TOWNS}

@@ -21,7 +21,7 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name='index'
+        name="index"
         options={{
           headerTitle: "Chats",
           headerRight: () => (
@@ -29,22 +29,22 @@ export default function Layout() {
               activeOpacity={0.3}
               onPress={() => router.push("/discover")}
             >
-              <Ionicons name='add-circle-outline' size={24} color='white' />
+              <Ionicons name="add-circle-outline" size={24} color="white" />
             </TouchableOpacity>
           ),
         }}
       />
 
       <Stack.Screen
-        name='[id]'
+        name="[id]"
         options={{
           headerTitle: "",
           headerRight: () => (
             <TouchableOpacity activeOpacity={0.3}>
               <Ionicons
-                name='ellipsis-vertical-sharp'
+                name="ellipsis-vertical-sharp"
                 size={24}
-                color='white'
+                color="white"
               />
             </TouchableOpacity>
           ),
@@ -52,7 +52,7 @@ export default function Layout() {
         }}
       />
 
-      <Stack.Screen name='chatUserProfile' options={{ headerTitle: "" }} />
+      <Stack.Screen name="chatUserProfile" options={{ headerTitle: "" }} />
     </Stack>
   );
 }

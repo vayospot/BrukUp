@@ -8,7 +8,7 @@ export default function UserProfileImage({ size, imgUrl }) {
     <Image
       source={url}
       style={{ width: size, height: size }}
-      className='rounded-full'
+      className="rounded-full"
     />
   );
 }

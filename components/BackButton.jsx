@@ -9,7 +9,7 @@ export default function BackButton() {
 
   return (
     <TouchableOpacity activeOpacity={0.3} onPress={handleBackPress}>
-      <Ionicons name='chevron-back' size={24} color='white' />
+      <Ionicons name="chevron-back" size={24} color="white" />
     </TouchableOpacity>
   );
 }

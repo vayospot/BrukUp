@@ -9,7 +9,7 @@ const App = () => {
     getUserData();
   }, []);
 
-  return <Redirect href='/(tabs)/discover/' />;
+  return <Redirect href="/(tabs)/discover/" />;
 };
 
 export default App;

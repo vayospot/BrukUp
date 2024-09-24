@@ -10,12 +10,12 @@ export default async function fetchUserData() {
         headers: {
           Authorization: `Client-ID ${API_KEY}`,
         },
-      }
+      },
     );
     console.log(
       `Remaining Requests: ${response.headers.get(
-        "X-Ratelimit-Remaining"
-      )}/${response.headers.get("X-Ratelimit-Limit")}`
+        "X-Ratelimit-Remaining",
+      )}/${response.headers.get("X-Ratelimit-Limit")}`,
     );
     const jsonData = await response.json();
     const userData = jsonData.results.map((item) => ({

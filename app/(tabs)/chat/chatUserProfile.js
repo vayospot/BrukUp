@@ -15,54 +15,54 @@ export default function chatUserProfile() {
 
   const MenuItem = ({ iconName, iconColor, text, textColor, onPress }) => (
     <TouchableOpacity
-      className='flex-row items-center flex-1 py-4'
+      className="flex-1 flex-row items-center py-4"
       style={{ gap: 8 }}
       onPress={onPress}
     >
       <Ionicons name={iconName} size={20} color={iconColor} />
-      <Text className={`${textColor} text-lg font-mediumFont`}>{text}</Text>
+      <Text className={`${textColor} font-mediumFont text-lg`}>{text}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <View className='bg-primary flex-1 px-3'>
-      <View className='items-center py-9' style={{ gap: 20 }}>
+    <View className="flex-1 bg-primary px-3">
+      <View className="items-center py-9" style={{ gap: 20 }}>
         <UserProfileImage size={120} imgUrl={currentChatUser.image} />
-        <Text className='text-white font-semibold text-2xl'>
+        <Text className="font-mediumFont text-2xl text-white">
           {currentChatUser.fullName}
         </Text>
       </View>
 
-      <View className='mt-8 divide-y divide-white/10'>
-        <View className='flex-row items-center justify-between px-2'>
+      <View className="mt-8 divide-y divide-white/10">
+        <View className="flex-row items-center justify-between px-2">
           <MenuItem
-            iconName='notifications-outline'
-            iconColor='#fff'
-            text='Notification'
-            textColor='text-white'
+            iconName="notifications-outline"
+            iconColor="#fff"
+            text="Notification"
+            textColor="text-white"
             onPress={() => setToggleNotification(!toggleNotification)}
           />
-          <Text className='text-white text-lg font-mediumFont ml-auto'>
+          <Text className="ml-auto font-mediumFont text-lg text-white">
             {toggleNotification ? "On" : "Off"}
           </Text>
         </View>
 
-        <View className='flex-row items-center justify-between px-2'>
+        <View className="flex-row items-center justify-between px-2">
           <MenuItem
-            iconName='remove-circle-outline'
-            iconColor='#b91c1c'
-            text='Block'
-            textColor='text-red-700'
+            iconName="remove-circle-outline"
+            iconColor="#b91c1c"
+            text="Block"
+            textColor="text-red-700"
             onPress={() => Alert.alert("User Blocked!")}
           />
         </View>
 
-        <View className='flex-row items-center justify-between px-2'>
+        <View className="flex-row items-center justify-between px-2">
           <MenuItem
-            iconName='alert-circle-outline'
-            iconColor='#b91c1c'
-            text='Report'
-            textColor='text-red-700'
+            iconName="alert-circle-outline"
+            iconColor="#b91c1c"
+            text="Report"
+            textColor="text-red-700"
             onPress={() => Alert.alert("User reported!")}
           />
         </View>

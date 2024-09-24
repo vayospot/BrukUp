@@ -13,16 +13,16 @@ export default function TownPreviewCard({
   const userData = useUserDataStore((state) => state.userData);
   const images = useMemo(
     () => shuffle(userData.map((item) => item.image)),
-    [userData]
+    [userData],
   );
 
   return (
     <Link href={"/townsquare/town"} asChild>
-      <TouchableOpacity className='relative w-full bg-transparent border border-neutral-400/30 p-3 rounded-xl space-y-2'>
-        <View className='flex-row justify-between items-center'>
-          <View className='space-y-1'>
-            <Text className='text-white font-mediumFont text-xl'>{name}</Text>
-            <Text className='font-regularFont text-secondary text-sm'>
+      <TouchableOpacity className="relative w-full space-y-2 rounded-xl border border-neutral-400/30 bg-transparent p-3">
+        <View className="flex-row items-center justify-between">
+          <View className="space-y-1">
+            <Text className="font-mediumFont text-xl text-white">{name}</Text>
+            <Text className="font-regularFont text-sm text-secondary">
               {activeFolks} folks active
             </Text>
           </View>
@@ -37,19 +37,19 @@ export default function TownPreviewCard({
         </View>
 
         <View>
-          <Text className='font-regularFont text-neutral-400' numberOfLines={1}>
+          <Text className="font-regularFont text-neutral-400" numberOfLines={1}>
             {bio}
           </Text>
         </View>
 
-        <View className='flex-row' style={{ gap: 10 }}>
+        <View className="flex-row" style={{ gap: 10 }}>
           <StackedImages
             imageURLList={images}
             numOfImages={5}
             imageSize={20}
             overlap={15}
           />
-          <Text className='text-neutral-400 font-regularFont'>
+          <Text className="font-regularFont text-neutral-400">
             ‣ {totalFolks}+ town folks
           </Text>
         </View>

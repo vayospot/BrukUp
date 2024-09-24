@@ -15,12 +15,12 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name='index'
+        name="index"
         options={{
           headerTitle: "",
           headerLeft: () => {
             return (
-              <View className='flex-row items-center' style={{ gap: 10 }}>
+              <View className="flex-row items-center" style={{ gap: 10 }}>
                 <TouchableOpacity>
                   <UserProfileImage size={30} />
                 </TouchableOpacity>
@@ -33,7 +33,7 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name='match'
+        name="match"
         options={{
           headerStyle: { backgroundColor: Colors.primary },
           headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },

@@ -12,11 +12,11 @@ export default function MessageBubble({
     <View className={alignmentClass}>
       <View className={`${bubbleColorClass} relative max-w-[200] rounded-xl`}>
         <View>
-          <Text className='font-regularFont text-base text-white p-2.5'>
+          <Text className="p-2.5 font-regularFont text-base text-white">
             {content}
           </Text>
           <Text
-            className={`absolute bottom-0 ${timePositionClass} font-regularFont text-xs text-gray-500 w-10`}
+            className={`absolute bottom-0 ${timePositionClass} w-10 font-regularFont text-xs text-gray-500`}
           >
             {time}
           </Text>

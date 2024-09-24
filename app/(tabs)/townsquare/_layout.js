@@ -14,19 +14,22 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name='index'
+        name="index"
         options={{
           headerTitle: "Townsquare",
         }}
       />
       <Stack.Screen
-        name='[townId]'
+        name="[townId]"
         options={{
+          presentation: "card",
+          gestureDirection: "vertical",
+          animation: "slide_from_bottom",
           headerTitle: "",
         }}
       />
       <Stack.Screen
-        name='search/[searchQuery]'
+        name="search/[searchQuery]"
         options={{
           headerTitle: "Search",
         }}

@@ -17,7 +17,7 @@ export default function Home() {
   };
 
   return (
-    <View className='flex-1 bg-primary px-2'>
+    <View className="flex-1 bg-primary px-2">
       <MasonryFlashList
         data={userData}
         numColumns={2}

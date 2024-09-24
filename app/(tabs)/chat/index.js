@@ -8,7 +8,7 @@ export default function index() {
   const userData = useUserDataStore((state) => state.userData);
 
   return (
-    <SafeAreaView className='bg-primary flex-1 justify-center items-center px-2'>
+    <SafeAreaView className="flex-1 items-center justify-center bg-primary px-2">
       <FlatList
         data={userData}
         renderItem={({ item }) => (
@@ -33,8 +33,8 @@ export default function index() {
         )}
         ListEmptyComponent={() => (
           <EmptyLayout
-            heading='No Chats'
-            subHeading='Start a conversation with someone to get started.'
+            heading="No Chats"
+            subHeading="Start a conversation with someone to get started."
           />
         )}
       />

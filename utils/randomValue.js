@@ -7,7 +7,7 @@ export default function randomValue(arg) {
     return Math.floor(Math.random() * range) + min;
   } else {
     throw new Error(
-      "Invalid argument type. Expecting either an array or object with prop min and max values."
+      "Invalid argument type. Expecting either an array or object with prop min and max values.",
     );
   }
 }

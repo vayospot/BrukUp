@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 import useTabBarVisibility from "../../utils/useTabBarVisibility";
 
 function TabBarIcon({ name }) {
-  return <Ionicons name={name} size={24} color='#ffffff' />;
+  return <Ionicons name={name} size={24} color="#ffffff" />;
 }
 
 export default function Layout() {
@@ -13,7 +13,7 @@ export default function Layout() {
 
   return (
     <Tabs
-      backBehavior='none'
+      backBehavior="none"
       sceneContainerStyle={{
         backgroundColor: Colors.primary,
       }}
@@ -28,7 +28,7 @@ export default function Layout() {
       }}
     >
       <Tabs.Screen
-        name='discover'
+        name="discover"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? "compass" : "compass-outline"} />
@@ -36,7 +36,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name='chat'
+        name="chat"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? "chatbox" : "chatbox-outline"} />
@@ -44,7 +44,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name='townsquare'
+        name="townsquare"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? "people" : "people-outline"} />
@@ -52,7 +52,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name='journal'
+        name="journal"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? "book" : "book-outline"} />
@@ -60,7 +60,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name='profile'
+        name="profile"
         options={{
           tabBarIcon: () => <UserProfileImage size={25} />,
         }}

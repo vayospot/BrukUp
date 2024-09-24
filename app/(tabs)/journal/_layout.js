@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <Stack>
       <Stack.Screen
-        name='index'
+        name="index"
         options={{
           headerStyle: { backgroundColor: Colors.primary },
           headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },

@@ -12,13 +12,13 @@ export default function StackedImages({
 
   return (
     <View
-      className='relative flex-row'
+      className="relative flex-row"
       style={{ width: totalWidth, height: imageSize }}
     >
       {visibleImages.map((imageURL, index) => (
         <View
           key={index}
-          className='absolute'
+          className="absolute"
           style={{
             left: index * overlap,
             zIndex: visibleImages.length - index,

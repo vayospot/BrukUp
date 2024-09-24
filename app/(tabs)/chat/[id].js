@@ -16,19 +16,19 @@ export default function ChatInterface() {
 
   const currentUser = useMemo(
     () => userData.find((item) => item.id === userId),
-    [userData, userId]
+    [userData, userId],
   );
 
   // Set header option dynamically for this screen
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <View className='flex-row items-center gap-3.5'>
+        <View className="flex-row items-center gap-3.5">
           <View>
             <BackButton />
           </View>
           <TouchableOpacity
-            className='flex-row items-center'
+            className="flex-row items-center"
             style={{ gap: 10 }}
             onPress={() =>
               router.push({
@@ -38,7 +38,7 @@ export default function ChatInterface() {
             }
           >
             <UserProfileImage size={35} imgUrl={currentUser?.image} />
-            <Text className='text-white text-xl font-boldFont'>
+            <Text className="font-boldFont text-xl text-white">
               {currentUser?.fullName}
             </Text>
           </TouchableOpacity>
@@ -55,7 +55,7 @@ export default function ChatInterface() {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
   return (
-    <SafeAreaView className='flex-1 px-5 bg-primary'>
+    <SafeAreaView className="flex-1 bg-primary px-5">
       <MessageList messages={messages} />
       <ChatInput onSendMessage={handleSendMessage} />
     </SafeAreaView>

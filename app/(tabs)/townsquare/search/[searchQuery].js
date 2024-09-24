@@ -14,23 +14,23 @@ export default function Search() {
     () =>
       searchValue.trim() !== ""
         ? ALL_TOWNS.filter((town) =>
-            town.name.toLowerCase().includes(searchValue.toLowerCase())
+            town.name.toLowerCase().includes(searchValue.toLowerCase()),
           )
         : [],
-    [searchValue]
+    [searchValue],
   );
 
   return (
-    <View className='bg-primary flex-1 p-5' style={{ gap: 20 }}>
+    <View className="flex-1 bg-primary p-5" style={{ gap: 20 }}>
       <SearchBar onSearch={setSearchValue} />
       <FlatList
         data={filteredTowns}
         renderItem={({ item }) => <TownPreviewCard town={item} />}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ flex: 1, paddingVertical: 10, gap: 20 }}
+        contentContainerStyle={{ paddingVertical: 10, gap: 20 }}
         ListHeaderComponent={
           searchValue.trim() !== "" && (
-            <Text className='text-2xl font-mediumFont text-white'>
+            <Text className="font-mediumFont text-2xl text-white">
               Search results for "{searchValue}"
             </Text>
           )
@@ -38,7 +38,7 @@ export default function Search() {
         ListEmptyComponent={
           <EmptyLayout
             heading={`No results found for "${searchValue}"`}
-            subHeading='Try searching for something else.'
+            subHeading="Try searching for something else."
           />
         }
       />

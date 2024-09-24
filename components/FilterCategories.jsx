@@ -8,16 +8,16 @@ export default function FilterCategories({ filterValues }) {
   const handleSelectedFilter = (value) => setSelectedFilter(value);
 
   return (
-    <View className='flex-row' style={{ gap: 10 }}>
+    <View className="flex-row" style={{ gap: 10 }}>
       {FILTER_VALUES.map((value, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => handleSelectedFilter(value)}
-          className={`px-2.5 py-1.5 rounded-full ${
+          className={`rounded-full px-2.5 py-1.5 ${
             selectedFilter === value ? "bg-accent" : "bg-black/10"
           }`}
         >
-          <Text className='text-white text-s font-mediumFont'>{value}</Text>
+          <Text className="text-s font-mediumFont text-white">{value}</Text>
         </TouchableOpacity>
       ))}
     </View>

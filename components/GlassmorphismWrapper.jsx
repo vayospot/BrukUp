@@ -2,9 +2,9 @@ import { View, TouchableOpacity } from "react-native";
 
 export default function GlassmorphismWrapper({ children }) {
   return (
-    <TouchableOpacity className='relative overflow-hidden rounded-full w-14 h-14 items-center justify-center'>
+    <TouchableOpacity className="relative h-14 w-14 items-center justify-center overflow-hidden rounded-full">
       {children}
-      <View className='absolute w-full h-full bg-gray-300 opacity-20 -z-10'></View>
+      <View className="absolute -z-10 h-full w-full bg-gray-300 opacity-20"></View>
     </TouchableOpacity>
   );
 }

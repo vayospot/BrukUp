@@ -37,45 +37,18 @@ export default function Layout() {
 
       <Stack.Screen
         name='[id]'
-        options={({ route }) => {
-          const currentChatUser = userData.find(
-            (item) => item.id === route.params.id
-          );
-
-          return {
-            headerTitle: "",
-            headerLeft: () => (
-              <View className='flex-row items-center gap-3.5'>
-                <View>
-                  <BackButton />
-                </View>
-                <TouchableOpacity
-                  className='flex-row items-center'
-                  style={{ gap: 10 }}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/chat/chatUserProfile",
-                      params: { userId: route.params.id },
-                    })
-                  }
-                >
-                  <UserProfileImage size={35} imgUrl={currentChatUser.image} />
-                  <Text className='text-white text-xl font-boldFont'>
-                    {currentChatUser.fullName}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ),
-            headerRight: () => (
-              <TouchableOpacity activeOpacity={0.3}>
-                <Ionicons
-                  name='ellipsis-vertical-sharp'
-                  size={24}
-                  color='white'
-                />
-              </TouchableOpacity>
-            ),
-          };
+        options={{
+          headerTitle: "",
+          headerRight: () => (
+            <TouchableOpacity activeOpacity={0.3}>
+              <Ionicons
+                name='ellipsis-vertical-sharp'
+                size={24}
+                color='white'
+              />
+            </TouchableOpacity>
+          ),
+          // headerLeft is set dynamically in the screen component
         }}
       />
 

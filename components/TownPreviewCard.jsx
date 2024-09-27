@@ -7,7 +7,7 @@ import Button from "./Button";
 import StackedImages from "./StackedImages";
 
 export default function TownPreviewCard({
-  town: { name, bio, activeFolks, totalFolks },
+  town: { id, name, bio, activeFolks, totalFolks },
 }) {
   const [hasJoinedTown, setHasJoinedTown] = useState(false);
   const userData = useUserDataStore((state) => state.userData);
@@ -17,7 +17,7 @@ export default function TownPreviewCard({
   );
 
   return (
-    <Link href={"/townsquare/town"} asChild>
+    <Link href={`townsquare/${id}`} asChild>
       <TouchableOpacity className="relative w-full space-y-2 rounded-xl border border-neutral-400/30 bg-transparent p-3">
         <View className="flex-row items-center justify-between">
           <View className="space-y-1">

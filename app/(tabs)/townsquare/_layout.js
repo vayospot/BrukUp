@@ -26,6 +26,7 @@ export default function Layout() {
           gestureDirection: "vertical",
           animation: "slide_from_bottom",
           headerTitle: "",
+          headerLeft: () => <BackButton isVertical={true} />,
         }}
       />
       <Stack.Screen

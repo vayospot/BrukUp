@@ -28,13 +28,15 @@ export default function Search() {
         renderItem={({ item }) => <TownPreviewCard town={item} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingVertical: 10, gap: 20 }}
-        ListHeaderComponent={
-          searchValue.trim() !== "" && (
-            <Text className="font-mediumFont text-2xl text-white">
-              Search results for "{searchValue}"
-            </Text>
-          )
-        }
+        ListHeaderComponent={() => {
+          if (filteredTowns.length > 0 && searchValue.trim() !== "") {
+            return (
+              <Text className="font-mediumFont text-2xl text-white">
+                Search results for "{searchValue}"
+              </Text>
+            );
+          }
+        }}
         ListEmptyComponent={
           <EmptyLayout
             heading={`No results found for "${searchValue}"`}

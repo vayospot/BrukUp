@@ -1,13 +1,34 @@
-import { View } from "react-native";
-import EmptyLayout from "../../../components/EmptyLayout";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import JOURNAL_DATA from "../../../services/journalData";
+import Colors from "../../../constants/Colors";
+import JournalList from "../../../components/JournalList";
+import AddNewButton from "../../../components/AddNewButton";
 
 export default function index() {
   return (
-    <View className="flex-1 items-center justify-center bg-primary px-2">
-      <EmptyLayout
-        heading="No Journals"
-        subHeading="Whats on your mind? Offload your thoughts to your journal."
+    <SafeAreaView
+      className="relative flex-1 bg-primary px-4 pt-8"
+      style={{ gap: 50 }}
+    >
+      <View
+        className="flex-col items-center justify-between"
+        style={{ gap: 2 }}
+      >
+        <Text className="font-boldFont text-3xl text-white">Hello</Text>
+        <Text className="font-regularFont text-sm text-neutral-400">
+          {new Date().toDateString()}
+        </Text>
+      </View>
+
+      <JournalList journals={JOURNAL_DATA.toReversed()} />
+
+      <AddNewButton
+        href="/journal/new"
+        btnStyle="absolute bottom-5 right-8"
+        iconSize={35}
+        iconColor={Colors.accent}
       />
-    </View>
+    </SafeAreaView>
   );
 }

@@ -12,6 +12,7 @@ const useTabBarVisibility = () => {
       "chatUserProfile",
       "[searchQuery]",
       "[townId]",
+      "[journalId]",
     ];
 
     return pagesToHideTabBar.includes(page);

@@ -4,6 +4,15 @@ An app for breakups
 
 ## React Native
 
+- To add cursor selection position:
+  - In`<TextInput />`, use`onSelectionChange` prop to get the clicked position:
+
+    ```
+    selection={selectionPosition}
+    onSelectionChange={(event) => event.nativeEvent.selection}
+    ```
+  - Then use a state to keep track, then set the cursor to the current position using the`selection` prop in`<TextInput />`
+
 ## Expo
 
 ## Prettier
@@ -15,19 +24,16 @@ An app for breakups
     ```
     npm install -D prettier prettier-plugin-tailwindcss
     ```
-
   - _Create a `.prettierrc` file, then add_:
 
     ```
     {"plugins": ["prettier-plugin-tailwindcss"]}
     ```
-
   - _As a plus, to format all specific files (e.g `.js` and `.jsx` files) and reformat Tailwind classes in one go, run_:
 
     ```
     npx prettier "**/*.{js,jsx}" --write
     ```
-
   -
 
 ## Commit Messages Guide
@@ -64,3 +70,18 @@ This was gotten from [Gitmoji.dev](gitmoji.dev)
 - 🎉[tada]: Begin a project.
 - 🗑️[wastebasket]: Deprecate code that needs to be cleaned up.
 - 💩[poop]: Write bad code that needs to be improved.
+
+## AI Prompts
+
+- To explain and teach code concepts:
+
+  > [Content to explain]
+  >
+  > You are an expert tutor in [content field]. I'm a complete beginner. Explain every aspect of the content above in a simple descriptive way. Don't hesitate to go into extensive detail with extra information and examples to ensure a thorough understanding.
+
+
+- To clean, optimize and refactor code:
+
+  > [Input Code]
+  > 
+  > Refactor this code to be cleaner, optimized and easier to maintain/use. Use descriptive code naming. Also, use any potential improvements that were not implemented but could be much valuable.

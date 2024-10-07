@@ -13,6 +13,7 @@ const useTabBarVisibility = () => {
       "[searchQuery]",
       "[townId]",
       "[journalId]",
+      "editProfile",
     ];
 
     return pagesToHideTabBar.includes(page);

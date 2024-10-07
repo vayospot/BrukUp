@@ -3,16 +3,18 @@ import BackButton from "../../../components/BackButton";
 
 export default function Layout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary },
+        headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
+        headerTitleAlign: "center",
+        headerLeft: () => <BackButton />,
+      }}
+    >
+      <Stack.Screen name="index" options={{ headerTitle: "Profile" }} />
       <Stack.Screen
-        name="index"
-        options={{
-          headerStyle: { backgroundColor: Colors.primary },
-          headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
-          headerTitleAlign: "center",
-          headerTitle: "Profile",
-          headerLeft: () => <BackButton />,
-        }}
+        name="editProfile"
+        options={{ headerTitle: "Edit Profile" }}
       />
     </Stack>
   );

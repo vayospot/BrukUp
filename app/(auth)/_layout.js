@@ -15,6 +15,7 @@ export default function AuthLayout() {
         headerLeft: () => <BackButton />,
       }}
     >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="signIn" />
       <Stack.Screen name="signUp" />
     </Stack>

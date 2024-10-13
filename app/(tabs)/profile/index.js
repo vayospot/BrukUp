@@ -1,8 +1,11 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../../../components/Button";
 import { router } from "expo-router";
+import { auth } from "../../../services/firebase";
+import { signOut } from "firebase/auth";
+import Toast from "react-native-toast-message";
 
 export default function index() {
   const MenuItem = ({ iconName, iconColor, text, textColor, onPress }) => (
@@ -15,6 +18,16 @@ export default function index() {
       <Text className={`${textColor} font-mediumFont text-lg`}>{text}</Text>
     </TouchableOpacity>
   );
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      Toast.show({ type: "success", text1: "Signed out successfully" });
+      router.replace("/(auth)/");
+    } catch (error) {
+      Toast.show({ type: "error", text1: "An error occured" });
+    }
+  };
 
   return (
     <View className="flex-1 bg-primary px-3">
@@ -88,8 +101,9 @@ export default function index() {
           <MenuItem
             iconName="log-out-outline"
             iconColor="#fff"
-            text="Logout"
+            text="Log out"
             textColor="text-white"
+            onPress={handleSignOut}
           />
           <View className="ml-auto font-mediumFont text-lg text-white">
             <Ionicons name="chevron-forward" size={20} color="#fff" />

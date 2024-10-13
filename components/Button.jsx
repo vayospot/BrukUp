@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, buttonText } from "react-native";
 
 export default function Button({
   title,

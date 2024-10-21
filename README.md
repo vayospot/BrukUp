@@ -28,7 +28,7 @@ This is my knowledge...
 - [Use useSafeAreaInsets hook from react-native-safe-area-context instead of SafeAreaView component](https://reactnavigation.org/docs/handling-safe-area#summary:~:text=Use%20useSafeAreaInsets%20hook%20from%20react%2Dnative%2Dsafe%2Darea%2Dcontext%20instead%20of%20SafeAreaView%20component)
 - For setting up [themes](https://reactnavigation.org/docs/themes)
 - To persist in a current screen when developing, [this could come in handy](https://reactnavigation.org/docs/state-persistence).
-- 
+- Use `TouchableWithoutFeedback` to wrap the entire screen to dismiss the keyboard when tapping outside the `TextInput` by calling `Keyboard.dismiss()`.
 
 ## Expo
 
@@ -60,7 +60,9 @@ This is my knowledge...
     ...Ionicons.font, // Load icon fonts from @expo/vector-icons
   });
   ```
-- 
+- In Expo Router, keep only the initial screens in the `(tabs)` folder. Move any nested stacks outside to avoid issues with [hiding the tab bar](https://reactnavigation.org/docs/hiding-tabbar-in-screens/) and [routing between stacks in different tabs](https://github.com/expo/expo/issues/26211#issuecomment-1887857547).
+- For keyboard handling, check out this thorough [guide](https://docs.expo.dev/guides/keyboard-handling/).
+- To prevent bottom tabs from moving above the keyboard on Android, set `softwareKeyboardLayoutMode` to `pan` in [app config](https://docs.expo.dev/guides/keyboard-handling/#keyboard-avoiding-view:~:text=%22expo%22%20%7B%0A%20%20%22android%22%3A%20%7B%0A%20%20%20%20%22softwareKeyboardLayoutMode%22%3A%20%22pan%22%0A%20%20%7D%0A%7D) or [tabBarHideOnKeyboard](https://reactnavigation.org/docs/bottom-tab-navigator/#tabbarhideonkeyboard)
 
 ## Prettier
 
@@ -114,8 +116,34 @@ This is my knowledge...
 
 ## Firebase
 
-- Currently, [Firebase does not support providers authentication](https://github.com/firebase/firebase-js-sdk/issues/5699#issuecomment-961263804) (e.g Google) using signInWIthPopup / signInWIthRedirect for React Native. Here is [another way to set it up](https://docs.expo.dev/guides/google-authentication/).
-- 
+- In Firestore, [addDoc()](https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document) adds a new document with an auto-generated ID. [setDoc()](https://firebase.google.com/docs/firestore/manage-data/add-data#set_a_document) creates or replaces a document with a specific ID (pass `{ merge: true }` to avoid overwriting document). [updateDoc()](https://firebase.google.com/docs/firestore/manage-data/add-data#update-data) updates specific fields in an existing document (and only if the document exists).
+- Currently, [Firebase does not support providers authentication](https://github.com/firebase/firebase-js-sdk/issues/5699#issuecomment-961263804) (e.g Google) using signInWIthPopup / signInWIthRedirect f**or React Native.** Here is [another way to set it up](https://docs.expo.dev/guides/google-authentication/).
+- To reduce storage costs, [exclude long string fields](https://firebase.google.com/docs/firestore/query-data/index-overview#:~:text=Description-,Large%20string%20fields,-If%20you%20have) not used for querying (e.g., notes, comments) from indexing.
+- In Firestore, [serverTimestamp()](https://firebase.google.com/docs/firestore/manage-data/add-data#server_timestamp) is preferred to ensure all records have a consistent timestamp.
+- All [Firebase Auth Error Codes](https://firebase.google.com/docs/reference/js/auth#autherrorcodes)
+- In Firebase, [prefer initializeAuth() over getAuth()](https://firebase.google.com/docs/auth/web/custom-dependencies#:~:text=The%20first%2C,map%20of%20dependencies.).
+- To batch upload data to Firestore Database:
+  ```javascript
+  async function batchUploadToFirestore(dataArray, collectionName) {
+    try {
+      const uploadPromises = dataArray.map(async (dataItem) => {
+        const docRef = doc(collection(db, collectionName));
+        await setDoc(docRef, { ...dataItem, id: docRef.id });
+      });
+
+      await Promise.all(uploadPromises);
+      console.log(`All data uploaded to Firestore collection: ${collectionName}`);
+    } catch (error) {
+      console.error(`Failed to upload data to Firestore collection: ${collectionName}`, error);
+    }
+  }
+  /*
+   * Note:
+   * - This is most efficient for creating new documents with auto-generated IDs.
+   * - If your dataItem already has a meaningful 'id', use:
+   *   setDoc(doc(db, collectionName, dataItem.id), dataItem);
+   */
+  ```
 
 ## Commit Messages Guide
 
@@ -164,27 +192,44 @@ This was gotten from [Gitmoji.dev](gitmoji.dev)
 
   > [Input Code]
   >
-  > Refactor this code to be cleaner, optimized and easier to maintain/use. Use descriptive naming and better styling practices. Also, use any potential improvements that were not implemented but could be much valuable.
+  > Refactor this code to be cleaner, optimized and easier to maintain/use. Use descriptive naming and better styling practices (nativewind). Also, use any potential improvements that were not implemented but could be much valuable.
   >
 - To generate commit messages:
 
   > Using these commit guide emojis:
   > 🐛(Fix a bug), ✨ (Introduce new features), 🚀 (Deploy stuff), ♻️ (Refactor code), 🎨 (Improve structure / format of the code), ⚡️ (Improve performance), 📝 (Add or update documentation), 🚑️ (Critical hotfix), 💡 (Add or update comments in source code), 🚧 (Work in progress), 🧑‍💻 (Improve developer experience), 🚸 (Improve user experience / usability), ⬆️ (Upgrade dependencies), 💄 (Add or update the UI and style files), ♿️ (Improve accessibility), 👽️ (Update code due to external API changes), 🚚 (Move or rename resources), ➕ (Add a dependency), ➖ (Remove a dependency), 📱 (Work on responsive design), 🔥 (Remove code or files), 💬 (Add or update text and literals), 🍱 (Add or update assets), 💫 (Add or update animations and transitions), ⬇️ (Downgrade dependencies), ✏️ (Fix typos), 🙈 (Add or update a .gitignore file), 🎉 (Begin a project), 🗑️ (Deprecate code that needs to be cleaned up), 💩 (Write bad code that needs to be improved).
   >
-  > Give me commit messages example for this (with the best suited commit emoji) - \[Input rough explanation of code to be committed]
+  > Generate a concise commit message based on the provided code changes. Ensure the commit message is readable at a glance and limited to a single sentence. The output should be in the format: **"[Emoji]: [Commit message]"**
   >
 - To generate Vector illustration:
 
   > Generate outline vector illustration with white background showing a group of people going through a breakup
+  >
+- To summarize or shorten
+
+  > Provide me with a summary - "[Include content]"
+  >
+- To create database structure for an app:
+
+  > Create a [Firestore] data structure for my app. Here are the core features of the app so you'd use that to construct a full most optimal data structure for the app firestore database:
+  >
+  > [- add app feature in list format]
+  >
+- To generate better prompts:
+
+  > [Input Prompt]
+  >
+  > Act as a prompt engineer. Review the above prompt, optimize it to make it better and ask any question you have before proceeding
   >
 
 ## Overall
 
 - For color theme generation, use [UI Colors](https://uicolors.app/) or [Realtime Colors](realtimecolors.com) or [Color Mind](http://colormind.io/bootstrap/) or better still ask AI (Copilot or Claude)
 - For UI component libraries, use [Tamagui](https://tamagui.dev/) or [gluestack (formerly NativeBase)](https://gluestack.io/).
-- For toast notification, use [react-native-toast-message](react-native-toast-message),  [react-native-notifier](https://github.com/seniv/react-native-notifier), [react-native-toast](https://github.com/backpackapp-io/react-native-toast)
-- All [Firebase Auth Error Codes](https://firebase.google.com/docs/reference/js/auth#autherrorcodes)
-- In Firebase, [prefer initializeAuth() over getAuth()](https://firebase.google.com/docs/auth/web/custom-dependencies#:~:text=The%20first%2C,map%20of%20dependencies.).
+- For toast notification, use [react-native-toast-message](https://github.com/calintamas/react-native-toast-message),  [react-native-notifier](https://github.com/seniv/react-native-notifier), [react-native-toast](https://github.com/backpackapp-io/react-native-toast)
+- In Zustand, [when combining smaller stores into a single bounded store](https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md), use `create` only for the bounded store, not for each individual stores.
+  > Note: When combining stores into one, make sure each store has **unique state property names**. If state properties overlap (e.g., both stores having `isLoading`), this can lead to serious side effects, as one state might overwrite the other unexpectedly.
+  >
 
 ## App Essentials Checklist
 

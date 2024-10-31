@@ -1,17 +1,13 @@
-import { View, Text, Alert } from "react-native";
-import UserProfileImage from "../../../components/UserProfileImage";
-import { useLocalSearchParams } from "expo-router";
-import useUserDataStore from "../../../context/UserDataStore";
-import { TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
+import UserProfileImage from "../../../components/UserProfileImage";
 
 export default function chatUserProfile() {
-  const userData = useUserDataStore((state) => state.userData);
-  const { userId } = useLocalSearchParams();
   const [toggleNotification, setToggleNotification] = useState(false);
-
-  const currentChatUser = userData.find((item) => item.id === userId);
+  const { fullName, image } = useLocalSearchParams();
 
   const MenuItem = ({ iconName, iconColor, text, textColor, onPress }) => (
     <TouchableOpacity
@@ -25,12 +21,10 @@ export default function chatUserProfile() {
   );
 
   return (
-    <View className="flex-1 bg-primary px-3">
+    <View className="flex-1 bg-primary px-4">
       <View className="items-center py-9" style={{ gap: 20 }}>
-        <UserProfileImage size={120} imgUrl={currentChatUser.image} />
-        <Text className="font-mediumFont text-2xl text-white">
-          {currentChatUser.fullName}
-        </Text>
+        <UserProfileImage size={120} imgUrl={image} />
+        <Text className="font-mediumFont text-2xl text-white">{fullName}</Text>
       </View>
 
       <View className="mt-8 divide-y divide-white/10">
@@ -53,7 +47,9 @@ export default function chatUserProfile() {
             iconColor="#b91c1c"
             text="Block"
             textColor="text-red-700"
-            onPress={() => Alert.alert("User Blocked!")}
+            onPress={() =>
+              Toast.show({ type: "error", text1: "User blocked!" })
+            }
           />
         </View>
 
@@ -63,7 +59,9 @@ export default function chatUserProfile() {
             iconColor="#b91c1c"
             text="Report"
             textColor="text-red-700"
-            onPress={() => Alert.alert("User reported!")}
+            onPress={() =>
+              Toast.show({ type: "error", text1: "User reported!" })
+            }
           />
         </View>
       </View>

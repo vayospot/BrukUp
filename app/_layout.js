@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { useFonts } from "expo-font";
 import { SplashScreen, Stack, router } from "expo-router";
-import Colors from "../constants/Colors";
-import { auth } from "../services/firebase";
-import Toast, { ErrorToast } from "react-native-toast-message";
+import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import Toast, { ErrorToast } from "react-native-toast-message";
+import { auth } from "../services/firebase";
+import useGlobalDataStore from "../context/globalDataStore";
+import Colors from "../constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+function useLoadFonts() {
   const [fontLoaded, fontError] = useFonts({
     BarlowSCLight: require("../assets/fonts/BarlowSemiCondensed-Light.ttf"),
     BarlowSCRegular: require("../assets/fonts/BarlowSemiCondensed-Regular.ttf"),
     BarlowSCMedium: require("../assets/fonts/BarlowSemiCondensed-Medium.ttf"),
     BarlowSCBold: require("../assets/fonts/BarlowSemiCondensed-Bold.ttf"),
-    Questrial: require("../assets/fonts/Questrial-Regular.ttf"),
     ...Ionicons.font,
   });
 
@@ -27,26 +25,70 @@ export default function RootLayout() {
     }
   }, [fontError]);
 
+  return fontLoaded;
+}
+
+function useAuthState(auth) {
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
-      setIsLoading(false);
+      setIsAuthLoading(false);
     });
 
     return unsubscribe;
   }, []);
+
+  return { user, isAuthLoading };
+}
+
+function useInitializeApp(hasStoreHydrated, fontLoaded, isAuthLoading, user) {
+  const fetchUserData = useGlobalDataStore((state) => state.fetchUserData);
+  const getUsersData = useGlobalDataStore((state) => state.getUsersData);
+  const getTownsData = useGlobalDataStore((state) => state.getTownsData);
+  const getJournalData = useGlobalDataStore((state) => state.getJournalData);
+  const journalData = useGlobalDataStore((state) => state.journalData);
+
+  const initializeJournalData = async () => {
+    if (journalData.length === 0) {
+      await getJournalData.initialFetch();
+    }
+  };
+
   useEffect(() => {
-    if (!isLoading && fontLoaded) {
+    const initializeApp = async () => {
+      if (!hasStoreHydrated || !fontLoaded || isAuthLoading) return;
+
       if (user) {
+        await Promise.allSettled([
+          fetchUserData(),
+          getUsersData.initialFetch(),
+          initializeJournalData(),
+        ]);
+
+        getTownsData.initialFetch(); // Background fetch for Town data
         router.replace("/(tabs)/discover");
       } else {
         router.replace("/(auth)/");
       }
-      SplashScreen.hideAsync();
-    }
-  }, [isLoading, user, fontLoaded]);
 
-  if (isLoading || !fontLoaded) return null;
+      SplashScreen.hideAsync();
+    };
+
+    initializeApp();
+  }, [hasStoreHydrated, fontLoaded, isAuthLoading, user]);
+}
+
+export default function RootLayout() {
+  const hasStoreHydrated = useGlobalDataStore.persist.hasHydrated();
+  const fontLoaded = useLoadFonts();
+  const { user, isAuthLoading } = useAuthState(auth);
+
+  useInitializeApp(hasStoreHydrated, fontLoaded, isAuthLoading, user);
+
+  if (isAuthLoading || !fontLoaded) return null;
 
   return (
     <>
@@ -59,18 +101,18 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
       </Stack>
-      <Toast
-        config={{
-          error: (props) => (
-            <ErrorToast
-              {...props}
-              text1Style={{
-                fontSize: 13,
-              }}
-            />
-          ),
-        }}
-      />
+      <Toast config={ToastConfig} />
     </>
   );
 }
+
+const ToastConfig = {
+  error: (props) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 13,
+      }}
+    />
+  ),
+};

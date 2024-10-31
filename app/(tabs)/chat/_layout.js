@@ -1,20 +1,14 @@
 import { Stack, router } from "expo-router";
 import BackButton from "../../../components/BackButton";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../../constants/Colors";
-import UserProfileImage from "../../../components/UserProfileImage";
-import useUserDataStore from "../../../context/UserDataStore";
 
 export default function Layout() {
-  const userData = useUserDataStore((state) => state.userData);
-
   return (
     <Stack
       screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.primary,
-        },
+        headerStyle: { backgroundColor: Colors.primary },
         headerTitleStyle: { color: "#fff", fontFamily: "BarlowSCBold" },
         headerTitleAlign: "center",
         headerLeft: () => <BackButton />,

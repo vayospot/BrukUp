@@ -11,6 +11,7 @@ import {
 export default function FormInput({
   label,
   value,
+  placeholder,
   onChangeText,
   inputMode = "text",
   isMultiLine = false,
@@ -42,6 +43,7 @@ export default function FormInput({
           inputMode={inputMode}
           secureTextEntry={secureTextEntry && hideSecureText}
           autoFocus={autoFocus}
+          placeholder={placeholder}
         />
         {secureTextEntry && (
           <TouchableOpacity

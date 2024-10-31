@@ -3,12 +3,14 @@ import { Ionicons } from "@expo/vector-icons";
 import UserProfileImage from "../../components/UserProfileImage";
 import Colors from "../../constants/Colors";
 import useTabBarVisibility from "../../utils/useTabBarVisibility";
+import useGlobalDataStore from "../../context/globalDataStore";
 
 function TabBarIcon({ name }) {
   return <Ionicons name={name} size={24} color="#ffffff" />;
 }
 
 export default function Layout() {
+  const userData = useGlobalDataStore((state) => state.userData);
   const shouldHideTabBar = useTabBarVisibility();
 
   return (
@@ -25,6 +27,7 @@ export default function Layout() {
           borderTopColor: "transparnt",
           display: shouldHideTabBar() ? "none" : "flex",
         },
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
@@ -62,7 +65,9 @@ export default function Layout() {
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarIcon: () => <UserProfileImage size={25} />,
+          tabBarIcon: () => (
+            <UserProfileImage size={25} imgUrl={userData?.image} />
+          ),
         }}
       />
     </Tabs>

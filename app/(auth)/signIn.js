@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { Link, router } from "expo-router";
+import { useEffect, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router";
 import FormInput from "../../components/FormInput";
 import TextHeader from "../../components/TextHeader";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -15,6 +15,12 @@ export default function signIn() {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   const handleInputChange = (fieldName, value) => {
     setCredentials((prevData) => ({
@@ -36,11 +42,11 @@ export default function signIn() {
         credentials.email,
         credentials.password,
       );
-      router.replace("/(tabs)/discover");
+      // onAuthStateChanged in RootLayout handles app initialization and redirection.
+      // isLoading resets to false on component unmount.
     } catch (error) {
-      handleAuthError(error);
-    } finally {
       setIsLoading(false);
+      handleAuthError(error);
     }
   };
 

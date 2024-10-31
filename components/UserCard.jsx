@@ -2,17 +2,32 @@ import { Image, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import GlassmorphismWrapper from "./GlassmorphismWrapper";
+import { useNavigation } from "expo-router";
+import { useState } from "react";
 
 export default function UserCard({ user }) {
+  const navigation = useNavigation();
+  const handleChat = () => {
+    // Fix for navigation issue when routing between stacks in tabs
+    // Refrence: https://github.com/expo/expo/issues/26211#issuecomment-1887857547
+    navigation.navigate("chat", {
+      screen: "[id]",
+      params: { id: user.uid },
+      initial: false,
+    });
+  };
+
   return (
     <View className="relative flex-1 overflow-hidden rounded-lg">
       <Image source={{ uri: user.image }} className="h-full w-full" />
-      <UserInfo user={user} />
+      <UserInfo user={user} handleChat={handleChat} />
     </View>
   );
 }
 
-function UserInfo({ user }) {
+function UserInfo({ user, handleChat }) {
+  const [isLiked, setIsLiked] = useState(false);
+
   return (
     <LinearGradient
       colors={["#00000000", "#00000060", "#00000095"]}
@@ -28,7 +43,7 @@ function UserInfo({ user }) {
 
       <View className="flex-row" style={{ gap: 10 }}>
         <Text className="font-regularFont text-5xl text-white">
-          {user.name}
+          {user.fullName.split(" ")[0]}
         </Text>
         <Text className="font-regularFont text-4xl text-white opacity-60">
           {user.age}
@@ -45,10 +60,14 @@ function UserInfo({ user }) {
         className="absolute bottom-8 right-4 items-center justify-center"
         style={{ gap: 15 }}
       >
-        <GlassmorphismWrapper>
-          <Ionicons name="heart" size={28} color="#fff" />
+        <GlassmorphismWrapper onPress={() => setIsLiked(!isLiked)}>
+          <Ionicons
+            name="heart"
+            size={28}
+            color={isLiked ? "#dc2626" : "#fff"}
+          />
         </GlassmorphismWrapper>
-        <GlassmorphismWrapper>
+        <GlassmorphismWrapper onPress={handleChat}>
           <Ionicons name="chatbubble" size={28} color="#fff" />
         </GlassmorphismWrapper>
       </View>

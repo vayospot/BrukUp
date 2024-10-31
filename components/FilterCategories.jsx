@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 
-export default function FilterCategories({ filterValues }) {
-  const FILTER_VALUES = filterValues;
-  const [selectedFilter, setSelectedFilter] = useState(FILTER_VALUES[0]);
+export default function FilterCategories({ filterOptions }) {
+  const [selectedFilter, setSelectedFilter] = useState(filterOptions[0]);
 
-  const handleSelectedFilter = (value) => setSelectedFilter(value);
+  const handleSelectedFilter = (option) => setSelectedFilter(option);
 
   return (
     <View className="flex-row" style={{ gap: 10 }}>
-      {FILTER_VALUES.map((value, index) => (
+      {filterOptions.map((option, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => handleSelectedFilter(value)}
+          onPress={() => handleSelectedFilter(option)}
           className={`rounded-full px-2.5 py-1.5 ${
-            selectedFilter === value ? "bg-accent" : "bg-black/10"
+            selectedFilter === option ? "bg-accent" : "bg-black/10"
           }`}
         >
-          <Text className="text-s font-mediumFont text-white">{value}</Text>
+          <Text className="font-mediumFont text-sm text-white">{option}</Text>
         </TouchableOpacity>
       ))}
     </View>

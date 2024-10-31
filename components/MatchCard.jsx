@@ -3,19 +3,14 @@ import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function MatchCard({
-  match: { id, height, name, image, matchValue },
+  match: { uid, name, image, imageHeight, matchValue },
 }) {
   return (
-    <Link
-      href={{ pathname: "/discover/match", params: { userId: id } }}
-      asChild
-    >
+    <Link href={{ pathname: "/discover/match", params: { uid: uid } }} asChild>
       <TouchableOpacity
         activeOpacity={0.6}
         className={`m-1 overflow-hidden rounded-xl`}
-        style={{
-          height: height,
-        }}
+        style={{ height: imageHeight }}
       >
         <Image
           source={{ uri: image }}

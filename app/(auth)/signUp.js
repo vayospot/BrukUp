@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Link, router } from "expo-router";
-import FormInput from "../../components/FormInput";
-import TextHeader from "../../components/TextHeader";
+import { useEffect, useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router";
 import { auth, db } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import Toast from "react-native-toast-message";
 import handleAuthError from "../../utils/handleAuthError";
+import validateDateString from "../../utils/validateDateString";
+import FormInput from "../../components/FormInput";
+import TextHeader from "../../components/TextHeader";
 import LoadingButton from "../../components/LoadingButton";
-import { addDoc, collection } from "firebase/firestore";
 
 export default function signUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,14 @@ export default function signUp() {
     fullName: "",
     email: "",
     password: "",
+    dateOfBirth: "",
   });
+
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   const handleInputChange = (fieldName, value) => {
     setCredentials((prevData) => ({
@@ -25,47 +33,80 @@ export default function signUp() {
     }));
   };
 
-  const handleSubmit = async () => {
+  const validateForm = () => {
+    const { fullName, dateOfBirth, email, password } = credentials;
+
     if (
-      (credentials.email === "" || credentials.password === "",
-      credentials.fullName === "")
+      fullName === "" ||
+      dateOfBirth === "" ||
+      email === "" ||
+      password === ""
     ) {
-      Toast.show({ type: "error", text1: "Please enter all fields" });
-      return;
+      Toast.show({ type: "error", text1: "Please fill all fields" });
+      return false;
     }
+
+    try {
+      validateDateString(dateOfBirth, {
+        isDateOfBirth: true,
+        minimumAge: 18,
+      });
+
+      return true;
+    } catch (error) {
+      Toast.show({ type: "error", text1: error.message });
+      return false;
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
 
     setIsLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        credentials.email,
-        credentials.password,
-      );
-
-      const docRef = await addDoc(collection(db, "users"), {
-        uid: userCredential.user.uid,
-        email: credentials.email,
-        fullName: credentials.fullName,
-        createdAt: new Date(),
+      const { email, password, fullName, dateOfBirth } = credentials;
+      const { age } = validateDateString(dateOfBirth, {
+        isDateOfBirth: true,
+        minimumAge: 18,
       });
 
-      console.log("Document written with ID: ", docRef.id);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
 
-      router.replace("/(tabs)/discover");
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email,
+        fullName,
+        dateOfBirth,
+        age,
+        location: "",
+        bio: "",
+        image: "",
+        imageHigh: "",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      
+      // onAuthStateChanged in RootLayout handles app initialization and redirection.
+      // isLoading resets to false on component unmount.
     } catch (error) {
-      handleAuthError(error);
-      console.log(error);
-    } finally {
       setIsLoading(false);
+      handleAuthError(error);
     }
   };
 
   return (
-    <View className="flex-1 bg-primary p-4" style={{ gap: 100 }}>
+    <ScrollView
+      className="flex-1 bg-primary p-4"
+      contentContainerStyle={{ gap: 100 }}
+    >
       <TextHeader
         className="items-center"
-        title="Let's Start"
-        subtitle="Create an account"
+        title="Create Account"
+        subtitle="Join the community"
       />
 
       <View className="flex-1">
@@ -77,7 +118,6 @@ export default function signUp() {
             handleSubmit={handleSubmit}
             autoFocus
           />
-
           <FormInput
             label="Your Email"
             value={credentials.email}
@@ -85,7 +125,12 @@ export default function signUp() {
             inputMode="email"
             handleSubmit={handleSubmit}
           />
-
+          <FormInput
+            label="Date of Birth (YYYY-MM-DD)"
+            value={credentials.dateOfBirth}
+            onChangeText={(value) => handleInputChange("dateOfBirth", value)}
+            handleSubmit={handleSubmit}
+          />
           <FormInput
             label="Your Password"
             value={credentials.password}
@@ -114,6 +159,6 @@ export default function signUp() {
           </Link>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }

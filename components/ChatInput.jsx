@@ -1,7 +1,11 @@
-import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { TextInput, View } from "react-native";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
 export default function ChatInput({ onSendMessage }) {
@@ -28,7 +32,10 @@ export default function ChatInput({ onSendMessage }) {
   };
 
   return (
-    <View className="flex flex-row items-center gap-2 py-1">
+    <KeyboardAvoidingView
+      className="flex flex-row items-center gap-2 py-1"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
       <TextInput
         className="flex-1 rounded-full bg-zinc-800 px-4 py-1 text-white"
         value={textInput}
@@ -40,6 +47,6 @@ export default function ChatInput({ onSendMessage }) {
       <TouchableOpacity onPress={handleSend}>
         <Ionicons name="send" size={28} color={Colors.accent} />
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

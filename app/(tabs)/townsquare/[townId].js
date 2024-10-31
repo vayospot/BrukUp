@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { View, Text } from "react-native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import useUserDataStore from "../../../context/UserDataStore";
-import ALL_TOWNS from "../../../services/townsquareData";
 import Button from "../../../components/Button";
-import UserGrid from "../../../components/UserGrid";
+import UsersGrid from "../../../components/UsersGrid";
 import shuffle from "../../../utils/shuffle";
 import AudioControls from "../../../components/AudioControls";
+import useGlobalDataStore from "../../../context/globalDataStore";
+import abbreviateNumber from "../../../utils/abbreviateNumber";
 
 export default function Town() {
   const navigation = useNavigation();
-  const userData = useUserDataStore((state) => state.userData);
+  const usersData = useGlobalDataStore((state) => state.usersData);
+  const townsData = useGlobalDataStore((state) => state.townsData);
   const { townId } = useLocalSearchParams();
   const [muted, setMuted] = useState(false);
 
@@ -27,23 +28,23 @@ export default function Town() {
   }, []);
 
   const currentTown = useMemo(
-    () => ALL_TOWNS.find((town) => town.id === townId),
+    () => townsData.find((town) => town.id === townId),
     [townId],
   );
 
   const { topActiveUsers, remainingActiveUsers } = useMemo(() => {
-    const shuffledUsers = shuffle([...userData]);
+    const shuffledUsers = shuffle(usersData);
     const topActiveUsers = shuffledUsers.slice(0, 6);
     const remainingActiveUsers = shuffledUsers.slice(6, 18);
 
     return { topActiveUsers, remainingActiveUsers };
-  }, [userData]);
+  }, [usersData]);
 
   return (
     <View className="relative flex-1 bg-primary px-5 py-4" style={{ gap: 30 }}>
       <View>
         <Text className="font-regularFont text-sm text-secondary">
-          {currentTown?.activeFolks} folks are active
+          {abbreviateNumber(currentTown?.activeFolks)} folks are active
         </Text>
         <Text className="font-mediumFont text-3xl text-white">
           {currentTown?.name}
@@ -54,8 +55,8 @@ export default function Town() {
       </View>
 
       <View>
-        <UserGrid
-          userData={topActiveUsers}
+        <UsersGrid
+          usersData={topActiveUsers}
           imageCardSize={70}
           numOfColumns={3}
         />
@@ -63,11 +64,11 @@ export default function Town() {
 
       <View className="flex-1" style={{ gap: 20 }}>
         <Text className="font-mediumFont text-lg text-neutral-200">
-          Others listening ({currentTown?.activeFolks - 6})
+          Others listening ({abbreviateNumber(currentTown?.activeFolks - 6)})
         </Text>
 
-        <UserGrid
-          userData={remainingActiveUsers}
+        <UsersGrid
+          usersData={remainingActiveUsers}
           imageCardSize={50}
           numOfColumns={4}
           containerStyle={{ gap: 20, paddingBottom: 150 }}

@@ -1,13 +1,25 @@
-import { View, Text, Image, Alert } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Button from "../../../components/Button";
+import { View, Text, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
-import { auth } from "../../../services/firebase";
+import { Ionicons } from "@expo/vector-icons";
 import { signOut } from "firebase/auth";
+import { auth } from "../../../services/firebase";
+import useGlobalDataStore from "../../../context/globalDataStore";
+import UserProfileImage from "../../../components/UserProfileImage";
 import Toast from "react-native-toast-message";
+import Button from "../../../components/Button";
+import { useEffect, useRef } from "react";
 
 export default function index() {
+  const userData = useGlobalDataStore((state) => state.userData);
+  const resetAllStores = useGlobalDataStore((state) => state.resetAllStores);
+  const isSignedOut = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      if (isSignedOut.current) resetAllStores();
+    };
+  }, []);
+
   const MenuItem = ({ iconName, iconColor, text, textColor, onPress }) => (
     <TouchableOpacity
       className="flex-1 flex-row items-center py-4"
@@ -22,7 +34,9 @@ export default function index() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      isSignedOut.current = true;
       Toast.show({ type: "success", text1: "Signed out successfully" });
+
       router.replace("/(auth)/");
     } catch (error) {
       Toast.show({ type: "error", text1: "An error occured" });
@@ -32,14 +46,9 @@ export default function index() {
   return (
     <View className="flex-1 bg-primary px-3">
       <View className="items-center py-9">
-        <View className="overflow-hidden rounded-xl">
-          <Image
-            source={require("../../../assets/images/profile-image.jpg")}
-            style={{ width: 120, height: 120 }}
-          />
-        </View>
+        <UserProfileImage size={120} imgUrl={userData?.image} />
         <Text className="mb-5 mt-1 font-mediumFont text-3xl text-white">
-          Bello Abiodun
+          {userData?.fullName || auth?.currentUser?.email.split("@")[0]}
         </Text>
 
         <Button

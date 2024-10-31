@@ -3,17 +3,18 @@ import { View, Text, FlatList } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import SearchBar from "../../../../components/SearchBar";
 import EmptyLayout from "../../../../components/EmptyLayout";
-import ALL_TOWNS from "../../../../services/townsquareData";
 import TownPreviewCard from "../../../../components/TownPreviewCard";
+import useGlobalDataStore from "../../../../context/globalDataStore";
 
 export default function Search() {
+  const townsData = useGlobalDataStore((state) => state.townsData);
   const { searchQuery } = useLocalSearchParams();
   const [searchValue, setSearchValue] = useState(searchQuery);
 
   const filteredTowns = useMemo(
     () =>
       searchValue.trim() !== ""
-        ? ALL_TOWNS.filter((town) =>
+        ? townsData.filter((town) =>
             town.name.toLowerCase().includes(searchValue.toLowerCase()),
           )
         : [],

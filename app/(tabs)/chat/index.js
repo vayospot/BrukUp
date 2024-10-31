@@ -1,16 +1,16 @@
 import { FlatList, View, SafeAreaView } from "react-native";
+import useGlobalDataStore from "../../../context/globalDataStore";
 import EmptyLayout from "../../../components/EmptyLayout";
 import ChatPreview from "../../../components/ChatPreview";
-import useUserDataStore from "../../../context/UserDataStore";
 import { PREVIEW_MESSAGES } from "../../../services/messageService";
 
 export default function index() {
-  const userData = useUserDataStore((state) => state.userData);
+  const usersData = useGlobalDataStore((state) => state.usersData);
 
   return (
     <SafeAreaView className="flex-1 items-center justify-center bg-primary px-2">
       <FlatList
-        data={userData}
+        data={usersData}
         renderItem={({ item }) => (
           <ChatPreview
             user={item}

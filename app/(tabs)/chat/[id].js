@@ -1,23 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import useUserDataStore from "../../../context/UserDataStore";
 import { DUMMY_MESSAGES } from "../../../services/messageService";
 import MessageList from "../../../components/MessageList";
 import ChatInput from "../../../components/ChatInput";
 import BackButton from "../../../components/BackButton";
 import UserProfileImage from "../../../components/UserProfileImage";
+import useGlobalDataStore from "../../../context/globalDataStore";
 
 export default function ChatInterface() {
   const navigation = useNavigation();
-  const { id: userId } = useLocalSearchParams();
-  const userData = useUserDataStore((state) => state.userData);
+  const { id } = useLocalSearchParams();
+  const usersData = useGlobalDataStore((state) => state.usersData);
   const [messages, setMessages] = useState([]);
 
-  const currentUser = useMemo(
-    () => userData.find((item) => item.id === userId),
-    [userData, userId],
-  );
+  const currentUser = usersData.find((user) => user.uid === id);
 
   // Set header option dynamically for this screen
   useEffect(() => {
@@ -33,7 +30,10 @@ export default function ChatInterface() {
             onPress={() =>
               router.push({
                 pathname: "/chat/chatUserProfile",
-                params: { userId: userId },
+                params: {
+                  fullName: currentUser?.fullName,
+                  image: currentUser?.image,
+                },
               })
             }
           >

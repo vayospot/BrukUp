@@ -1,19 +1,20 @@
 import { useMemo, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import useUserDataStore from "../context/UserDataStore";
 import shuffle from "../utils/shuffle";
 import { Link } from "expo-router";
 import Button from "./Button";
 import StackedImages from "./StackedImages";
+import useGlobalDataStore from "../context/globalDataStore";
+import abbreviateNumber from "../utils/abbreviateNumber";
 
 export default function TownPreviewCard({
   town: { id, name, bio, activeFolks, totalFolks },
 }) {
   const [hasJoinedTown, setHasJoinedTown] = useState(false);
-  const userData = useUserDataStore((state) => state.userData);
+  const usersData = useGlobalDataStore((state) => state.usersData);
   const images = useMemo(
-    () => shuffle(userData.map((item) => item.image)),
-    [userData],
+    () => shuffle(usersData.map((item) => item.image)),
+    [usersData],
   );
 
   return (
@@ -23,7 +24,7 @@ export default function TownPreviewCard({
           <View className="space-y-1">
             <Text className="font-mediumFont text-xl text-white">{name}</Text>
             <Text className="font-regularFont text-sm text-secondary">
-              {activeFolks} folks active
+              {abbreviateNumber(activeFolks)} folks active
             </Text>
           </View>
           <Button
@@ -50,7 +51,7 @@ export default function TownPreviewCard({
             overlap={15}
           />
           <Text className="font-regularFont text-neutral-400">
-            ‣ {totalFolks}+ town folks
+            ‣ {abbreviateNumber(totalFolks)} town folks
           </Text>
         </View>
       </TouchableOpacity>

@@ -18,7 +18,7 @@ export default function TownUserImageCard({
           </View>
         )}
       </View>
-      <Text className="font-regularFont text-sm text-white">{name}</Text>
+      <Text className="mt-1 font-regularFont text-sm text-white">{name}</Text>
     </View>
   );
 }

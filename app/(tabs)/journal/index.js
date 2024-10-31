@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import JOURNAL_DATA from "../../../services/journalData";
 import Colors from "../../../constants/Colors";
 import JournalList from "../../../components/JournalList";
 import AddNewButton from "../../../components/AddNewButton";
@@ -21,7 +20,7 @@ export default function index() {
         </Text>
       </View>
 
-      <JournalList journals={JOURNAL_DATA.toReversed()} />
+      <JournalList />
 
       <AddNewButton
         href="/journal/new"

@@ -20,7 +20,6 @@ module.exports = {
         accent: "#D64141",
       },
       fontFamily: {
-        questrial: ["Questrial"],
         lightFont: ["BarlowSCLight"],
         regularFont: ["BarlowSCRegular"],
         mediumFont: ["BarlowSCMedium"],

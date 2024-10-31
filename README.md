@@ -5,13 +5,14 @@ This is the first mobile app I created by the way, so yeah, *achievement unlocke
 
 ## Demo
 
-<!-- Live video/Gif here ![gif/video](path/to/screenshot.png) -->
+https://github.com/user-attachments/assets/842fc279-f8d0-4aed-b2ec-8e5f99a1189c
 
 [View Live](https://x.com/vayospot/status/1852042289578951155)
 
 ## Design
 
-<!-- Design image here -->
+![brukup_UI_design](https://github.com/user-attachments/assets/c4859bf8-4de0-4836-9167-3cb095eea2b2)
+
 *Shoutout to the designers whose designs inspired this!*
 
 ## Features
@@ -42,7 +43,7 @@ This is the first mobile app I created by the way, so yeah, *achievement unlocke
 ## Future Plans
 
 - Add light mode
-- 
+- Add Realtime Chat functionality
 
 ## Special Thanks
 
@@ -55,5 +56,5 @@ Big shoutouts to:
 ## Contact
 
 Feel free to reach out:
-- 📧 Email: [vayospot@gmail.com](mailto:email@example.com)
-- 🐦 Twitter: [@vayospot](x.com/vayospot)
+- 📧 Email: [vayospot@gmail.com](mailto:vayospot@gmail.com)
+- 🐦 Twitter: [@vayospot](https://x.com/vayospot)
